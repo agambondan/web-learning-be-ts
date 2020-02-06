@@ -3,19 +3,20 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import UserController from './controller/userController';
+import CategoryController from './controller/categoryController';
 
 class App {
-
 	public app: any;
 	public userController: UserController;
+	public categoryController: CategoryController;
 	public mongoUrl: string = 'mongodb://localhost:27017/website_learning';
 
 	constructor() {
 		this.app = express();
 		this.config();
 		this.mongoSetup();
-
 		this.userController = new UserController(this.app);
+		this.categoryController = new CategoryController(this.app);
 	}
 
 	private config() {
