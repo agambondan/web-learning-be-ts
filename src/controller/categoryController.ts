@@ -10,14 +10,6 @@ class CategoryController {
 	}
 
 	public routes() {
-		this.app.route('/').get((req: Request, res: Response) => {
-			console.log(`Request from: ${req.originalUrl}`);
-			console.log(`Request type: ${req.method}`);
-			res.status(200).send({
-				message: 'GET request successfully!!!!'
-			});
-		});
-
 		this.app.route('/categories').get(this.categoryService.getAllCategory);
 
 		this.app.route('/category').post(this.categoryService.addNewCategory);
