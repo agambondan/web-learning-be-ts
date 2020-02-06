@@ -4,11 +4,13 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import UserController from './controller/userController';
 import CategoryController from './controller/categoryController';
+import ArticleController from './controller/articleController';
 
 class App {
 	public app: any;
 	public userController: UserController;
 	public categoryController: CategoryController;
+	public articleController: ArticleController;
 	public mongoUrl: string = 'mongodb://localhost:27017/website_learning';
 
 	constructor() {
@@ -17,6 +19,7 @@ class App {
 		this.mongoSetup();
 		this.userController = new UserController(this.app);
 		this.categoryController = new CategoryController(this.app);
+		this.articleController = new ArticleController(this.app);
 	}
 
 	private config() {
