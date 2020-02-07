@@ -16,13 +16,14 @@ class ArticleService {
 			res.json(article);
 		});
 	}
-	public getAllArticle(req: Request, res: Response) {
-		Article.find({}, (error: Error, article: any) => {
+	public async getAllArticle(req: Request, res: Response) {
+	const articles = await Article.find(
+			(error: Error) => {
 			if (error) {
 				res.send(error);
-			}
-			res.json(article);
-		});
+			}}
+		).populate('userId').populate('tagId').select('_id');
+		res.send(articles)
 	}
 	public getArticleById(req: Request, res: Response) {
 		articleId = req.params.id;

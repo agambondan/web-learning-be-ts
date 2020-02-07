@@ -16,13 +16,20 @@ class TagService {
 			res.json(tag);
 		});
 	}
-	public getAllTag(req: Request, res: Response) {
-		Tag.find({}, (error: Error, tag: any) => {
+	public async getAllTag(req: Request, res: Response) {
+		const tag = await Tag.find(
+			(error: Error) => {
 			if (error) {
 				res.send(error);
-			}
-			res.json(tag);
-		});
+			}}
+		).populate('categoryId').populate('articleId');
+		res.send(tag)
+		// Tag.find({}, (error: Error, tag: any) => {
+		// 	if (error) {
+		// 		res.send(error);
+		// 	}
+		// 	res.json(tag);
+		// });
 	}
 	public getTagById(req: Request, res: Response) {
 		tagId = req.params.id;
@@ -39,9 +46,7 @@ class TagService {
 			if (error) {
 				res.send(error);
 			}
-			message = tag
-				? `Delete Tag By ${tagId} successfully`
-				: `Tag Id ${tagId} Not Found`;
+			message = tag ? `Delete Tag By ${tagId} successfully` : `Tag Id ${tagId} Not Found`;
 			res.status(200).send(message);
 		});
 	}
@@ -51,10 +56,9 @@ class TagService {
 			if (error) {
 				res.send(error);
 			}
-			message = tag
-				? `Update Tag By ${tagId} successfully`
-				: `Tag Id ${tagId} Not Found`;
+			message = tag ? `Update Tag By ${tagId} successfully` : `Tag Id ${tagId} Not Found`;
 			res.status(200).send(message);
+			res.json(tag);
 		});
 	}
 }

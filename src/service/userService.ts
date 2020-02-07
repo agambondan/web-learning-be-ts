@@ -5,7 +5,6 @@ import { Request, Response } from 'express';
 const User = mongoose.model('User', UserSchema);
 let userId: string = '';
 let message: string = '';
-
 class UserService {
 	public addNewUser(req: Request, res: Response) {
 		let newUser = new User(req.body);
@@ -25,13 +24,14 @@ class UserService {
 		});
 	}
 	public getUserById(req: Request, res: Response) {
-		// const id = req.params.id;
 		userId = req.params.id;
 		User.findById(userId, (error: Error, user: any) => {
 			if (error) {
 				res.send(error);
 			}
+			message = user ? `Get User By ${userId} successfully` : `User Id ${userId} Not Found`;
 			res.json(user);
+			res.status(200).send(message);
 		});
 	}
 	public deleteUserById(req: Request, res: Response) {
@@ -52,6 +52,7 @@ class UserService {
 			}
 			message = user ? `Update User By ${userId} successfully` : `User Id ${userId} Not Found`;
 			res.status(200).send(message);
+			res.json(user);
 		});
 	}
 }
