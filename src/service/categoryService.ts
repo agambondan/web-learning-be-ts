@@ -16,13 +16,21 @@ class CategoryService {
 			res.json(category);
 		});
 	}
-	public getAllCategory(req: Request, res: Response) {
-		Category.find({}, (error: Error, category: any) => {
+	public async getAllCategory(req: Request, res: Response) {
+		// Category.find({}, (error: Error, category: any) => {
+		// 	if (error) {
+		// 		res.send(error);
+		// 	}
+		// 	res.json(category);
+		// }).populate('tagId');
+		// res.send(Category);
+		const category = await Category.find(
+			(error: Error) => {
 			if (error) {
 				res.send(error);
-			}
-			res.json(category);
-		});
+			}}
+		).populate('tagId');
+		res.send(category)
 	}
 	public getCategoryById(req: Request, res: Response) {
 		categoryId = req.params.id;

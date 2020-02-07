@@ -4,6 +4,15 @@ import { text } from 'body-parser';
 const Schema = mongoose.Schema;
 
 export const ArticleSchema = new Schema({
+    tagId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tag',
+    }],
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+		required: 'id user cannot be empty!'
+    },
 	titles: {
 		type: String,
 		required: 'tittle cannot be empty!',
@@ -14,10 +23,6 @@ export const ArticleSchema = new Schema({
         minlength: 100,
         maxlength: 5000,
         required: 'content cannot be empty!'
-    },
-    tagId: {
-        type: String,
-        required: 'id tag cannot be empty!'
     },
 	created_date: {
 		type: Date,
